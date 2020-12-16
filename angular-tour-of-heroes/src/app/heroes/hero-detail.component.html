@@ -1,0 +1,40 @@
+
+<div class="detail" *ngIf="hero">
+
+<form (ngSubmit)="SaveDeets(detailForm)" #detailForm="ngForm">
+<h2>{{hero.name | uppercase}} </h2>
+        <div><span>ID : </span> {{hero.id}}</div>
+        <div>
+            <label>Name: </label>
+            <input [(ngModel)]="hero.name" 
+            id="name"
+            name="name" 
+            #nameVar="ngModel"
+            placeholder="name"
+            required 
+            minlength="2"
+            #heroNameVar="ngModel"
+            [ngClass]="(heroNameVar.touched|| heroNameVar.dirty) && !heroNameVar.valid ?'is-invalid' :''"
+            />
+           <div class="isInvalidField" *ngIf="!heroNameVar?.valid">
+               <span *ngIf="heroNameVar?.errors?.required">Name is required!</span>
+               <span *ngIf="heroNameVar?.errors?.minlength">2 chars min!</span>
+           </div>  
+           <div [ngClass]="heroNameVar?.valid? 'show' : 'hide'">TESTING </div>           
+        
+            <label>Skill: 
+              <input [(ngModel)]="hero.skill" name="skill" placeholder="Skill" />            
+          </label>
+ </div>
+ <button class="btn btn-primary" [disabled]="!detailForm.valid" type="submit">Save</button>
+
+ 
+</form>
+<div>
+    <br>Dirty: {{detailForm?.dirty}}
+    <br>Touched: {{detailForm?.touched}}
+    <br>Valid: {{detailForm?.valid}}
+    <br>Value: {{detailForm?.value | json}}
+    <br>HeroName: {{heroNameVar?.valid}}
+    </div>
+</div>
